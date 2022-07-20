@@ -90,7 +90,7 @@ def get_drinks_detail(payload):
         or appropriate status code indicating reason for failure
 '''
 @app.route("/drinks", methods=["POST"])
-# @requires_auth("post:drinks")
+@requires_auth("post:drinks")
 def create_drink(payload):
     data=[]
     body = request.get_json()
@@ -184,7 +184,7 @@ def update_drink(payload, drink_id):
     returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
         or appropriate status code indicating reason for failure
 '''
-@app.route("/drinks/<int:id>", methods=("DELETE"))
+@app.route("/drinks/<int:id>", methods=["DELETE"])
 @requires_auth("delete:drinks")
 def delete_drinks(payload, drink_id):
     data=[]
@@ -205,7 +205,7 @@ def delete_drinks(payload, drink_id):
 
     except Exception:
         db.session.rollback()
-        flash(f"An erroe occured, {drink} drink could not be deleted")
+        flash(f"An error occured, {drink} drink could not be deleted")
         abort(422)
 
     finally:
