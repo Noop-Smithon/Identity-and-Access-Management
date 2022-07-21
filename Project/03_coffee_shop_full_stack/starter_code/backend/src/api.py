@@ -29,11 +29,15 @@ db_drop_and_create_all()
         or appropriate status code indicating reason for failure
 '''
 @app.route("/drinks", methods=["GET"])
-def get_drinks(payload):
+def get_drinks():
 
     try:
-        data=[]
-        data.append({(drink.short())for drink in Drink.query.all()})
+        data=[{
+            "name": "water",
+            "color": "blue",
+            "parts": 1
+        }]
+        # data.append({(drink.short())for drink in Drink.query.all()})
         if len(data)==0:
             return jsonify({
                 "success": True,
